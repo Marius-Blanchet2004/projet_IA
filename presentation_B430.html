@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiabila · Classification qualité B430</title>
+<script src="plotly.min.js"></script>
+<script src="data3d.js"></script>
+<style>
+  :root{
+    --bg:#ffffff;
+    --bg2:#faf7f5;
+    --ink:#191512;
+    --muted:#7a7068;
+    --line:#ece5e0;
+    --card:#ffffff;
+    --flame:#cf122f;       /* rouge officiel Fiabila (logo) */
+    --flame-d:#a50f26;
+    --ember:#e0455a;       /* cramoisi clair pour dégradés */
+    --gold:#c8a24a;
+    --bon:#1f9d57;
+    --mauvais:#cf122f;
+    --blue:#3f6fd6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Inter","Helvetica Neue","Segoe UI",system-ui,-apple-system,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:0 30px}
+  section{padding:78px 0;border-bottom:1px solid var(--line)}
+  .eyebrow{text-transform:uppercase;letter-spacing:.26em;font-size:11.5px;font-weight:700;color:var(--flame);margin-bottom:16px}
+  h1{font-size:clamp(34px,5.2vw,60px);line-height:1.04;font-weight:800;letter-spacing:-.02em}
+  h2{font-size:clamp(25px,3.3vw,37px);font-weight:800;letter-spacing:-.01em;margin-bottom:12px;color:var(--ink)}
+  h3{font-size:18px;font-weight:700;margin-bottom:6px}
+  p.lead{font-size:clamp(16px,1.7vw,19px);color:var(--muted);max-width:690px}
+
+  /* TOP BAR */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo-img{height:36px;width:auto;display:block}
+  .logo-img.foot{height:40px;margin:0 auto 14px}
+  .topbar .meta{font-size:12px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase}
+  .drop{width:11px;height:13px;border-radius:60% 60% 60% 0;transform:rotate(45deg);background:var(--flame);display:inline-block}
+
+  /* HERO */
+  .hero{position:relative;overflow:hidden;background:
+        radial-gradient(640px 360px at 88% -8%,rgba(207,18,47,.10),transparent 62%),
+        radial-gradient(520px 320px at -6% 8%,rgba(207,18,47,.06),transparent 60%),var(--bg)}
+  .hero .wrap{padding-top:84px;padding-bottom:78px}
+  .hero .kicker{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:600;color:var(--muted);border:1px solid var(--line);background:#fff;padding:7px 15px;border-radius:999px;margin-bottom:26px}
+  .hero .kicker .fl{width:13px;height:16px}
+  .hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--flame),var(--ember));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.lead{margin-top:22px}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+  .stat{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:22px 20px}
+  .stat .num{font-size:34px;font-weight:800;letter-spacing:-.02em}
+  .stat .num.flame{color:var(--flame)} .stat .num.bon{color:var(--bon)}
+  .stat .lab{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+  .grid2{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center}
+  .grid2.rev{grid-template-columns:.95fr 1.05fr}
+  .figure{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 18px 44px rgba(120,80,40,.10)}
+  .figure img{width:100%;display:block;border-radius:8px}
+  .figcap{font-size:12.5px;color:var(--muted);margin-top:10px;text-align:center}
+
+  .plotbox{background:#fff;border:1px solid var(--line);border-radius:18px;padding:8px;box-shadow:0 20px 50px rgba(120,80,40,.12)}
+  .plot{width:100%;height:520px}
+  .plot.tall{height:560px}
+
+  .chips{display:flex;gap:18px;margin:18px 0 4px;flex-wrap:wrap}
+  .chip{display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600}
+  .sq{width:13px;height:13px;border-radius:4px}
+  .sq.bon{background:var(--bon)} .sq.mauvais{background:var(--mauvais)}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+  .step{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:26px}
+  .step .n{font-size:12.5px;font-weight:800;color:var(--flame);letter-spacing:.12em}
+  .step h3{margin-top:8px} .step p{font-size:14.5px;color:var(--muted)}
+
+  .bars{margin-top:26px;display:flex;flex-direction:column;gap:16px;max-width:560px}
+  .bar-row{display:grid;grid-template-columns:118px 1fr 52px;align-items:center;gap:14px}
+  .bar-row .name{font-weight:600;font-size:15px}
+  .track{height:16px;background:#f1ebe6;border-radius:999px;overflow:hidden}
+  .fill{height:100%;border-radius:999px}
+  .bar-row .val{font-variant-numeric:tabular-nums;font-weight:700;text-align:right}
+
+  .switch{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+  .mbtn{cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink);padding:12px 18px;border-radius:12px;font-weight:700;font-size:14.5px;font-family:inherit;display:flex;flex-direction:column;gap:2px;min-width:152px;transition:.15s}
+  .mbtn small{font-weight:600;font-size:11.5px;color:var(--muted)}
+  .mbtn:hover{border-color:#dcd2ca}
+  .mbtn.active{border-color:var(--flame);box-shadow:0 0 0 1px var(--flame) inset;background:#fff7f5}
+  .mbtn.active small{color:var(--flame)}
+  .modelinfo{display:flex;align-items:center;gap:16px;margin-top:16px;flex-wrap:wrap}
+  .accbadge{display:inline-flex;align-items:baseline;gap:8px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 16px}
+  .accbadge b{font-size:24px;color:var(--flame)} .accbadge span{font-size:12px;color:var(--muted)}
+  .mdesc{font-size:14.5px;color:var(--muted);max-width:520px}
+
+  .tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:34px}
+  .tool{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:18px 16px;display:flex;align-items:center;gap:13px}
+  .tool .ic{width:40px;height:40px;border-radius:10px;flex:none;display:grid;place-items:center;font-weight:800;font-size:15px;color:#fff}
+  .tool .tt{font-weight:700;font-size:14.5px;line-height:1.2}
+  .tool .ts{font-size:12px;color:var(--muted)}
+
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:26px}
+  .ptitle{font-size:15px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:9px}
+  .ptitle .pct{font-size:11.5px;font-weight:600;color:var(--muted)}
+  .note{margin-top:22px;font-size:13.5px;color:var(--muted);background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--flame);border-radius:10px;padding:14px 18px;max-width:760px}
+  @media(max-width:820px){.duo{grid-template-columns:1fr}}
+
+  footer{padding:46px 0;text-align:center;color:var(--muted);font-size:13px;background:var(--bg2)}
+  footer .brand{justify-content:center;margin-bottom:10px;color:var(--ink)}
+
+  @media(max-width:820px){
+    .grid2,.grid2.rev{grid-template-columns:1fr}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .steps{grid-template-columns:1fr}
+    .topbar .meta{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="wrap">
+    <img class="logo-img" src="fiabila-logo-crop.png" alt="Fiabila — The Nail Polish">
+    <div class="meta">Broyeur B430 · Contrôle qualité prédictif</div>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker"><span class="drop"></span> Stage ouvrier 2026 · Maintenon</span>
+    <div class="eyebrow">Contrôle qualité prédictif</div>
+    <h1>Prédire la qualité d'un lot<br><em>avant même de l'analyser.</em></h1>
+    <p class="lead">À partir de 3 paramètres machine — durée, température, pression — un modèle classe automatiquement chaque broyage en <b style="color:var(--bon)">BON</b> ou <b style="color:var(--mauvais)">MAUVAIS</b>.</p>
+    <div class="stats">
+      <div class="stat"><div class="num flame">85,7%</div><div class="lab">de bonnes prédictions</div></div>
+      <div class="stat"><div class="num">3</div><div class="lab">paramètres suffisent</div></div>
+      <div class="stat"><div class="num bon">N°1</div><div class="lab">facteur clé : la température</div></div>
+      <div class="stat"><div class="num">28</div><div class="lab">lots analysés</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- PRINCIPE -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Le principe</div>
+    <h2>Trois mesures, une décision automatique</h2>
+    <p class="lead">Chaque lot est décrit par ses conditions de broyage. Le modèle apprend à reconnaître les combinaisons qui donnent un bon produit — et à signaler celles qui partent en défaut.</p>
+    <div class="steps">
+      <div class="step"><div class="n">01 · ENTRÉE</div><h3>Les conditions du broyage</h3><p>Durée (min), température (°C) et pression (bar) relevées pendant la fabrication.</p></div>
+      <div class="step"><div class="n">02 · MODÈLE</div><h3>Apprentissage sur l'historique</h3><p>Le modèle s'entraîne sur les lots passés, bons comme mauvais, pour en tirer la règle.</p></div>
+      <div class="step"><div class="n">03 · SORTIE</div><h3>BON ou MAUVAIS</h3><p>Une prédiction immédiate pour chaque nouveau lot, avant analyse laboratoire.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3D INTERACTIF -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Les données en 3D — tournez, zoomez</div>
+    <h2>Les bons et les mauvais lots occupent des zones distinctes</h2>
+    <p class="lead">Chaque sphère est un lot réel, positionné selon ses 3 paramètres. C'est exactement ce que le modèle exploite pour décider. Faites tourner le nuage à la souris.</p>
+    <div class="chips">
+      <span class="chip"><span class="sq bon"></span> BON produit</span>
+      <span class="chip"><span class="sq mauvais"></span> MAUVAIS produit</span>
+    </div>
+    <div class="plotbox" style="margin-top:18px"><div id="plot-scatter" class="plot"></div></div>
+  </div>
+</section>
+
+<!-- FACTEUR CLE -->
+<section>
+  <div class="wrap">
+    <div class="grid2 rev">
+      <div class="figure">
+        <img src="feature_importance_RF.png" alt="Importance des variables">
+        <div class="figcap">Poids de chaque paramètre dans la décision du modèle</div>
+      </div>
+      <div>
+        <div class="eyebrow">Le facteur déterminant</div>
+        <h2>La température pèse pour moitié dans la qualité</h2>
+        <p class="lead">Le modèle ne se contente pas de prédire : il dit <i>pourquoi</i>. La température est de loin le paramètre le plus discriminant, devant la pression et la durée.</p>
+        <div class="bars">
+          <div class="bar-row"><span class="name">Température</span><div class="track"><div class="fill" style="width:100%;background:linear-gradient(90deg,#cf122f,#e0455a)"></div></div><span class="val">51%</span></div>
+          <div class="bar-row"><span class="name">Pression</span><div class="track"><div class="fill" style="width:52%;background:#1f9d57"></div></div><span class="val">27%</span></div>
+          <div class="bar-row"><span class="name">Durée</span><div class="track"><div class="fill" style="width:44%;background:#c8a24a"></div></div><span class="val">22%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHODES / FRONTIERES -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Plusieurs façons de classer · frontière de décision en 3D</div>
+    <h2>Comparer les méthodes de classification</h2>
+    <p class="lead">Plusieurs algorithmes ont été testés. Chacun trace une <b>frontière</b> différente entre la zone « bon » et la zone « mauvais ». La surface ci-dessous est cette frontière — tout ce qui est d'un côté est prédit BON, de l'autre MAUVAIS. Changez de méthode pour comparer.</p>
+
+    <div class="switch" style="margin-top:24px">
+      <button class="mbtn active" data-m="rf"  onclick="selectModel('rf')">Random Forest<small>Forêt d'arbres</small></button>
+      <button class="mbtn" data-m="rbf" onclick="selectModel('rbf')">SVM noyau RBF<small>Frontière courbe</small></button>
+      <button class="mbtn" data-m="lin" onclick="selectModel('lin')">SVM linéaire<small>Plan droit</small></button>
+    </div>
+
+    <div class="plotbox"><div id="plot-boundary" class="plot tall"></div></div>
+
+    <div class="modelinfo">
+      <div class="accbadge"><b id="acc-val">85,7%</b><span>de bonnes<br>prédictions</span></div>
+      <div class="mdesc" id="model-desc">La forêt aléatoire combine de nombreux arbres de décision. C'est la méthode la plus précise ici — sa frontière épouse finement la forme des données.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ZONES DE VALIDITÉ (2D) -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Zones de validité · probabilité P(BON) en 2D</div>
+    <h2>Où se situe la zone « bon produit » ?</h2>
+    <p class="lead">Pour chaque paire de paramètres, la carte montre la probabilité qu'un lot soit BON : vert = forte, rouge = faible. Les contours tracent les seuils 50 %, 70 % et 90 %. D'un coup d'œil, on lit la zone sûre — bien plus parlant qu'une vue 3D.</p>
+    <div class="chips">
+      <span class="chip"><span class="sq bon"></span> Lot BON</span>
+      <span class="chip"><span class="sq mauvais"></span> Lot MAUVAIS</span>
+      <span class="chip">Contours : 50 % (noir) · 70 % (bleu) · 90 % (or)</span>
+    </div>
+    <div class="figure" style="margin-top:18px">
+      <img src="zones_validite.png" alt="Zones de validité — probabilité BON produit, SVM RBF et Random Forest">
+      <div class="figcap">Haut : SVM RBF · Bas : Random Forest — projections Durée×Temp, Durée×Pression, Temp×Pression</div>
+    </div>
+  </div>
+</section>
+
+<!-- RÉCAP MEILLEURES ZONES -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Récap · les meilleures zones</div>
+    <h2>Le réglage qui maximise les chances d'un bon lot</h2>
+    <p class="lead">En croisant les lots BON observés et les deux modèles, on dégage une zone de réglage « sûre » — puis les tendances propres à chaque méthode.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 8px">
+      <div style="background:#fff;border:1px solid var(--line);border-left:3px solid var(--bon);border-radius:10px;padding:13px 18px"><b style="font-size:19px">47 – 49 °C</b><div style="font-size:12px;color:var(--muted)">Température</div></div>
+      <div style="background:#fff;border:1px solid var(--line);border-left:3px solid var(--bon);border-radius:10px;padding:13px 18px"><b style="font-size:19px">0,7 – 0,9 bar</b><div style="font-size:12px;color:var(--muted)">Pression</div></div>
+      <div style="background:#fff;border:1px solid var(--line);border-left:3px solid var(--bon);border-radius:10px;padding:13px 18px"><b style="font-size:19px">720 – 960 min</b><div style="font-size:12px;color:var(--muted)">Durée</div></div>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:6px">Zone centrale des lots BON (intervalle interquartile observé).</p>
+    <div class="duo">
+      <div class="step"><div class="n">SVM RBF</div><h3>Zone lisse, mais optimiste</h3><p>Le RBF dessine une zone « bonne » douce et compacte autour du cœur des lots BON. Revers : il est trop optimiste — il classe une large part de l'espace en BON, donc il laisse plus facilement passer un mauvais lot atypique.</p></div>
+      <div class="step"><div class="n">RANDOM FOREST</div><h3>Zone en escalier, plus prudente</h3><p>La forêt découpe la zone par seuils nets (typique des arbres), pilotés surtout par la température. Plus prudente sur les bords, c'est elle qui atteint la meilleure précision (85,7 %).</p></div>
+    </div>
+    <p class="note"><b>À garder en tête :</b> pris séparément, aucun paramètre ne sépare nettement BON et MAUVAIS (température médiane 48,8 °C contre 49,9 °C — très proche). La zone sûre vient de la <b>combinaison</b> des trois paramètres, et reste imparfaite (~85 % au mieux). À utiliser comme aide à la décision, pas comme garantie.</p>
+  </div>
+</section>
+
+<!-- OUTILS -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Le socle technique</div>
+    <h2>Construit avec des outils standards de l'industrie</h2>
+    <p class="lead">Rien de propriétaire ni de coûteux : une stack open-source, éprouvée, maintenable et reproductible.</p>
+    <div class="tools">
+      <div class="tool"><div class="ic" style="background:linear-gradient(135deg,#3776ab,#3f6fd6)">Py</div><div><div class="tt">Python</div><div class="ts">Langage d'analyse</div></div></div>
+      <div class="tool"><div class="ic" style="background:linear-gradient(135deg,#cf122f,#e0455a)">sk</div><div><div class="tt">scikit-learn</div><div class="ts">Modèles ML</div></div></div>
+      <div class="tool"><div class="ic" style="background:linear-gradient(135deg,#c8a24a,#e0b85e)">Ju</div><div><div class="tt">Jupyter</div><div class="ts">Analyse interactive</div></div></div>
+      <div class="tool"><div class="ic" style="background:linear-gradient(135deg,#1f9d57,#27b566)">pd</div><div><div class="tt">pandas</div><div class="ts">Traitement des données</div></div></div>
+      <div class="tool"><div class="ic" style="background:linear-gradient(135deg,#a50f26,#cf122f)">Pl</div><div><div class="tt">Plotly</div><div class="ts">Visualisation 3D</div></div></div>
+      <div class="tool"><div class="ic" style="background:linear-gradient(135deg,#191512,#4a423b)">ML</div><div><div class="tt">Random Forest · SVM</div><div class="ts">Algorithmes testés</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- VALEUR -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Ce que le modèle apporte</div>
+    <h2>Deux gisements de valeur</h2>
+    <p class="lead">Au-delà de la prédiction, le modèle ouvre deux leviers concrets. Le premier produit un effet dès aujourd'hui ; le second est une piste prometteuse, à confirmer par des essais.</p>
+    <div class="duo">
+      <div class="step" style="border-left:3px solid var(--bon)">
+        <div class="n" style="color:var(--bon)">LEVIER 1 · QUALITÉ</div>
+        <h3>Repérer les lots à risque avant de les produire</h3>
+        <p>Chaque lot signalé MAUVAIS en amont, c'est de la matière, du temps machine et de la main-d'œuvre qui ne partent pas en rebut. Effet immédiat et mesurable, dès que le modèle est en place.</p>
+      </div>
+      <div class="step" style="border-left:3px solid var(--gold)">
+        <div class="n" style="color:var(--gold)">LEVIER 2 · CAPACITÉ</div>
+        <h3>Optimiser la durée de broyage</h3>
+        <p>Le modèle délimite une zone de réglage sûre. Reste à vérifier, par des essais contrôlés, jusqu'où on peut raccourcir le broyage sans en sortir. Chaque minute gagnée libère du temps machine sur <i>toute</i> la production à venir. Hypothèse à valider — pas encore une certitude.</p>
+      </div>
+    </div>
+    <p class="note"><b>Honnêteté sur les chiffres :</b> sur les 28 lots étudiés, la durée n'est pas ce qui sépare le bon du mauvais (c'est la température). Un gain de capacité ne peut donc pas être affirmé aujourd'hui — il doit être <b>prouvé par un essai dédié</b>. Le chiffrage du retour sur investissement (rebuts évités, capacité gagnée) sera établi à partir des volumes et coûts réels de production.</p>
+  </div>
+</section>
+
+<!-- EXTENSION -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">La suite</div>
+    <h2>Étendre la méthode à tous les produits</h2>
+    <p class="lead">La démarche validée sur le B430 se transpose produit par produit. Chaque produit reçoit son propre modèle et sa propre zone de réglage sûre — à une condition : disposer de son historique.</p>
+    <div class="steps">
+      <div class="step"><div class="n">01 · DONNÉES</div><h3>L'historique étiqueté</h3><p>Pour chaque produit, rassembler les lots passés avec leur verdict BON / MAUVAIS. Sans données étiquetées, pas de modèle — c'est le point à vérifier en premier.</p></div>
+      <div class="step"><div class="n">02 · MODÈLE</div><h3>Un modèle par produit</h3><p>Entraîné et validé selon le même protocole que le B430, avec sa mesure de précision propre.</p></div>
+      <div class="step"><div class="n">03 · RÉGLAGE</div><h3>La zone sûre</h3><p>Les paramètres qui maximisent les chances d'un bon lot, lisibles d'un coup d'œil par l'atelier.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLAN F400 -->
+<section style="border-bottom:none">
+  <div class="wrap">
+    <div class="eyebrow">Cas concret · F400</div>
+    <h2>Un plan d'essais pour aller chercher le gain de durée</h2>
+    <p class="lead">Sur la production F400 à venir, plutôt que d'affirmer qu'on peut broyer moins longtemps, on le teste — à l'échelle réelle, avec un filet de sécurité. La majorité des lots reste en réglage sûr, une part minoritaire explore des durées plus courtes.</p>
+
+    <div style="margin:30px 0 8px">
+      <div style="display:flex;height:30px;border-radius:8px;overflow:hidden;border:1px solid var(--line)">
+        <div style="flex:0 0 60%;background:var(--bon);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13.5px">~60 % · réglage sûr</div>
+        <div style="flex:0 0 40%;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13.5px">~40 % · essais d'optimisation</div>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-top:8px">Objectif de fin d'année — atteint <b>progressivement</b>, pas dès le départ.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="n">DÉMARCHE</div><h3>Par vagues, du petit au grand</h3><p>On commence par une petite vague d'essais (durée réduite d'un cran, en restant près de la zone sûre du modèle). On mesure, on valide, puis on élargit. Le risque reste borné à chaque étape.</p></div>
+      <div class="step"><div class="n">PRÉREQUIS</div><h3>Un modèle F400</h3><p>Donner les « bons paramètres » suppose un modèle F400, donc un historique de lots F400 étiquetés. À confirmer avant de lancer — sinon on construit d'abord ce modèle.</p></div>
+      <div class="step"><div class="n">LE GAIN</div><h3>Permanent, pas ponctuel</h3><p>Une réduction de durée prouvée s'applique ensuite à <i>toute</i> la production F400, chaque année. Le vrai prix n'est pas dans les lots de test, mais dans le gain répété qui en sort.</p></div>
+    </div>
+
+    <p class="note"><b>Cadre des essais :</b> aucun lot n'est lancé sans réglage validé par le modèle. Les éventuels lots d'essai non conformes relèvent d'un coût d'expérimentation maîtrisé et défini en amont — le pari de l'optimisation, borné et assumé.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <img class="logo-img foot" src="fiabila-logo-crop.png" alt="Fiabila">
+  </div>
+</footer>
+
+<script>
+const D = window.DATA3D;
+const COL = {bon:'#1f9d57', mau:'#cf122f'};
+const SURF = {rf:'#c8a24a', rbf:'#3f6fd6', lin:'#9aa0aa'};
+const META = {
+  rf : {acc:'85,7%', desc:"La forêt aléatoire combine de nombreux arbres de décision. C'est la méthode la plus précise ici — sa frontière épouse finement la forme des données."},
+  rbf: {acc:'82,1%', desc:"Le SVM à noyau RBF trace une frontière courbe et souple, capable de contourner les zones mélangées."},
+  lin: {acc:'67,9%', desc:"Le SVM linéaire sépare par un simple plan droit. Plus rigide : il ne capte pas les zones où bons et mauvais se chevauchent — d'où une précision plus faible."}
+};
+
+function scatterTrace(){
+  return {
+    type:'scatter3d', mode:'markers',
+    x:D.points.x, y:D.points.y, z:D.points.z,
+    marker:{size:6, color:D.points.label.map(l=>l? COL.bon:COL.mau),
+            line:{width:1,color:'#ffffff'}, opacity:0.96},
+    hovertemplate:'Durée %{x} min<br>Temp. %{y} °C<br>Pression %{z} bar<extra></extra>', name:''
+  };
+}
+function isoTrace(key){
+  const v=D.models[key].value; let vmax=-Infinity, vmin=Infinity;
+  for(let i=0;i<v.length;i++){ const x=v[i]; if(x>vmax)vmax=x; if(x<vmin)vmin=x; }
+  const t=0.025*(vmax-vmin);          // bande fine autour de la frontière (valeur = 0)
+  const col=SURF[key];
+  return {
+    type:'isosurface', x:D.grid.x, y:D.grid.y, z:D.grid.z, value:v,
+    isomin:-t, isomax:t, surface:{count:2, fill:1.0},
+    caps:{x:{show:false},y:{show:false},z:{show:false}},
+    showscale:false, opacity:0.33, colorscale:[[0,col],[1,col]],
+    hoverinfo:'skip', name:'frontière'
+  };
+}
+function layout3d(){
+  const ax=t=>({
+    title:{text:t,font:{color:'#3a322c',size:13}},
+    tickfont:{color:'#6b6b73',size:10},
+    color:'#6b6b73', nticks:6,
+    gridcolor:'#e3d9d1', zerolinecolor:'#c9bcb0',
+    showline:true, linecolor:'#b6a596', linewidth:1.6,
+    ticks:'outside', tickcolor:'#b6a596', ticklen:4,
+    showticklabels:true, showbackground:true,
+    backgroundcolor:'rgba(250,247,245,0.6)'
+  });
+  return {paper_bgcolor:'rgba(0,0,0,0)', margin:{l:0,r:0,t:0,b:0}, showlegend:false,
+    scene:{xaxis:ax('Durée (min)'), yaxis:ax('Temp. (°C)'), zaxis:ax('Pression (bar)'),
+           bgcolor:'rgba(0,0,0,0)', camera:{eye:{x:1.6,y:1.5,z:1.1}}}};
+}
+const CFG={responsive:true, displayModeBar:false};
+
+Plotly.newPlot('plot-scatter', [scatterTrace()], layout3d(), CFG);
+function drawBoundary(key){ Plotly.react('plot-boundary', [isoTrace(key), scatterTrace()], layout3d(), CFG); }
+function selectModel(key){
+  document.querySelectorAll('.mbtn').forEach(b=>b.classList.toggle('active', b.dataset.m===key));
+  document.getElementById('acc-val').textContent=META[key].acc;
+  document.getElementById('model-desc').textContent=META[key].desc;
+  drawBoundary(key);
+}
+drawBoundary('rf');
+</script>
+</body>
+</html>
