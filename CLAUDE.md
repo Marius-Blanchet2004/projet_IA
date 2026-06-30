@@ -22,12 +22,33 @@ Python is invoked with `py` (not `python` or `python3`) on this machine.
 
 Cell `4b1ffbb1` defines `RUN_OPTIMIZATION = False`. Set to `True` to re-run the three long optimization cells (sections 8, 8b, 10). When `False`, those cells are skipped silently so **Run All** completes in seconds.
 
+When `RUN_OPTIMIZATION = True`, sections 8b and 10 automatically write their results to `optimal_params.json` and rebuild `models` in memory. Cell 5 reads this file on the next run, so optimized parameters persist without re-running the optimization.
+
+## optimal_params.json — paramètre persistence
+
+`optimal_params.json` (gitignored) stores the latest optimal hyperparameters found by GridSearchCV:
+
+```json
+{
+  "SVM Linéaire":          {"C": 0.001},
+  "SVM Linéaire (bal.)":   {"C": 0.001},
+  "SVM RBF":               {"C": 1, "gamma": "scale"},
+  "SVM RBF (bal.)":        {"C": 0.001, "gamma": 0.001},
+  "SVM Poly deg=2 (bal.)": {"C": 0.001},
+  "SVM Poly deg=3 (bal.)": {"C": 0.001},
+  "NuSVC RBF (bal.)":      {"nu": 0.4},
+  "Random Forest":         {"n_estimators": 500}
+}
+```
+
+Cell 5 (`72f549c1`) loads this file if present, falls back to hardcoded `_DEFAULT` if absent. Sections 8b and 10 update and overwrite it after each optimization run.
+
 ## Data structure — bilan SVM.xlsx
 
-The Excel file has a non-standard layout: **BON PRODUIT** batches occupy columns A–E and **MAUVAIS PRODUIT** batches occupy columns G–J, side by side in the same rows (row index 4 to 23, row 24 = averages). There is no single tidy header row. The notebook reads it with `header=None` and reconstructs a flat DataFrame via `extract_group()`.
+The Excel file has a non-standard layout: **BON PRODUIT** batches occupy columns A–E and **MAUVAIS PRODUIT** batches occupy columns G–J, side by side in the same rows (row index 4 to 25, row 26 = averages). There is no single tidy header row. The notebook reads it with `header=None` and reconstructs a flat DataFrame via `extract_group()`.
 
-- 28 total batches (20 BON, 8 MAUVAIS)
-- 2 entries have `N/D` (no temperature reading) — imputed with group mean via `groupby().transform()`, not dropped
+- 34 total batches (22 BON, 12 MAUVAIS)
+- Some entries have `N/D` (no temperature reading) — imputed with group mean via `groupby().transform()`, not dropped
 - Columns used: `Durée (min)`, `Temp. (°C)`, `Pression (bar)`, `label` (1=BON, 0=MAUVAIS)
 
 ## Notebook architecture (analyse_SVM.ipynb)
@@ -42,41 +63,44 @@ The Excel file has a non-standard layout: **BON PRODUIT** batches occupy columns
 | `12a3b22c` | 3 | 4-angle 3D views → `vues_multiples_3D.png` |
 | `615bbcbe` | 3b | Interactive 3D scatter (Plotly) |
 | `e1a1220c` | 4 | `StandardScaler` on `X_raw` → `X` |
-| `72f549c1` | 5 | Define 8 models with optimized parameters |
+| `72f549c1` | 5 | Load `OPT` from `optimal_params.json` (fallback to `_DEFAULT`), build 8 models |
 | `8ca47255` | 6 | LOOCV via `cross_val_score` + `LeaveOneOut`, `n_jobs=-1` |
 | `d37a372c` | 7 | Styled comparison table (best model highlighted green) |
 | `2cc5e200` | 8 | GridSearchCV on SVM RBF (bal.) over C × gamma — skipped if `RUN_OPTIMIZATION=False` |
-| `86107272` | 8b | Full SVM optimization (all C, nu values) — skipped if `RUN_OPTIMIZATION=False` |
+| `86107272` | 8b | Full SVM optimization (all C, nu values) — saves to `optimal_params.json`, rebuilds `models` — skipped if `RUN_OPTIMIZATION=False` |
 | `caa41654` | 8c | 4 interactive Plotly figures: SVM RBF (orange MAUVAIS bubble), SVM Linéaire (blue boundary), SVM Poly deg=3 (blue boundary), Random Forest (3 nested green surfaces at 50/70/90%) |
 | `e56314ef` | 9 | Random Forest feature importances → `feature_importance_RF.png` |
 | `0aca1151` | 9b | Plot first 3 RF trees at max_depth=3 (trained on `X_raw` for readable thresholds in min/°C/bar) |
-| `206045c0` | 10 | n_estimators optimization for RF — skipped if `RUN_OPTIMIZATION=False` |
+| `50bc1c04` | 10 | n_estimators optimization for RF — saves best n to `optimal_params.json`, rebuilds `rf_final` — skipped if `RUN_OPTIMIZATION=False` |
 | `70927b44` | 11 | Markdown conclusions |
 | `ebf6d1d4` | 12 | Markdown: section 12 description (3 threshold lines: black=50%, blue=70%, gold=90%) |
 | `02f19a4d` | 12 | 2D heatmaps of P(BON) for each pair of variables × 2 models, with 3 contour lines (50/70/90%) → `zones_validite.png` |
 | `5300382f` | 12b | Markdown: section 12b description |
-| `91f6e1cc` | 12b | 3D interactive validity zones (Plotly Isosurface) at 50/70/90% for SVM RBF and Random Forest |
+| `91f6e1cc` | 12b | RF-only 3D Plotly isosurface at P(BON) = 98% |
+| `c11bc43e` | 12b | Connected components at 98%: top-4 volumes with centroid + extent (scipy.ndimage.label) |
 | `6c3e4b44` | — | Parameter ranges at ≥90% confidence for both Random Forest and SVM RBF (printed table) |
 
 `StandardScaler` is fit on the full dataset (no separate test set) because LOOCV is the sole evaluation strategy. This is intentional for small industrial datasets.
 
 ## Models tested
 
-`class_weight='balanced'` is applied to all SVM variants to compensate for the 20/8 class imbalance.
-Parameters below are the optimized values found by GridSearchCV (section 8b).
+`class_weight='balanced'` is applied to all SVM variants to compensate for the 22/12 class imbalance.
+Parameters below are the optimized values found by GridSearchCV (section 8b) on the 34-point dataset.
 
 | Modèle | Accuracy LOOCV | Paramètres optimisés |
 |---|---|---|
-| Random Forest | **85.7%** | n_estimators=100 |
-| SVM RBF (bal.) | 82.1% | C=1, gamma=1.0 |
-| SVM RBF | 82.1% | C=10, gamma=0.1 |
-| NuSVC RBF (bal.) | 78.6% | nu=0.2 |
-| SVM Linéaire | 71.4% | C=0.001 (dégénéré — prédit tout BON) |
-| SVM Linéaire (bal.) | 71.4% | C=0.001 (dégénéré — prédit tout BON) |
-| SVM Poly deg=3 (bal.) | 71.4% | C=0.001 (dégénéré — prédit tout BON) |
-| SVM Poly deg=2 (bal.) | 71.4% | C=0.001 (dégénéré — prédit tout BON) |
+| SVM Linéaire (bal.) | **97.1%** | C=0.001 |
+| SVM RBF (bal.) | **97.1%** | C=0.001, gamma=0.001 |
+| SVM Poly deg=2 (bal.) | 100.0%* | C=0.001 |
+| SVM Poly deg=3 (bal.) | 100.0%* | C=0.001 |
+| Random Forest | 82.4% | n_estimators=500 |
+| SVM RBF | 73.5% | C=1, gamma='scale' |
+| NuSVC RBF (bal.) | 73.5% | nu=0.4 |
+| SVM Linéaire | 64.7% | C=0.001 (dégénéré — prédit tout BON) |
 
-**Note on degenerate models:** C=0.001 (chosen by GridSearchCV for linear/poly) produces a model that predicts all BON, achieving 71.4% accuracy by majority class baseline — not real learning. For the 3D decision boundary visualization (section 8c), C=100 is used instead so a visible boundary exists.
+*SVM Poly 100% LOOCV is an artifact: polynomial features expand 3D space to ~20D, making 34 points linearly separable by chance. K-Fold (section `analyse_kfold.ipynb`) reveals the true accuracy ~52% (below majority baseline).
+
+**Note on degenerate models:** C=0.001 (chosen by GridSearchCV for linear/poly) produces a model that predicts all BON, achieving majority-class baseline accuracy — not real learning. For the 3D decision boundary visualization (section 8c), C=100 is used instead so a visible boundary exists.
 
 Most discriminating variable: **Temp. (°C)** (Gini importance ~51%), then Pression (~27%), Durée (~22%).
 
@@ -90,10 +114,11 @@ Most discriminating variable: **Temp. (°C)** (Gini importance ~51%), then Press
 ## Section 12 — Validity zones
 
 - **Cell `02f19a4d`**: 2×3 heatmap grid (2 models × 3 variable pairs). Each heatmap averages P(BON) over the 3rd variable (12 samples). Three contour lines: black=50%, blue=70%, gold=90%.
-- **Cell `91f6e1cc`**: 3D Plotly versions of the same for SVM RBF and RF, using `svm_zone` (`probability=True`) and `rf_final`.
-- **Cell `6c3e4b44`**: Printed table of parameter ranges where P(BON) ≥ 90%, for both models.
+- **Cell `91f6e1cc`**: RF-only 3D Plotly isosurface at exactly P(BON) = 98%.
+- **Cell `c11bc43e`**: Connected-component analysis (scipy.ndimage.label, 26-connectivity) of the 98% mask on an 80³ grid. Prints top-4 volumes with centroid + extent.
+- **Cell `6c3e4b44`**: Printed table of parameter ranges where P(BON) ≥ 90%, for both RF and SVM RBF.
 
-`svm_zone` is a separate SVC instance trained with `probability=True` (Platt scaling) used only for sections 12/12b. `viz_models['SVM RBF (bal.)']` in section 8c uses `decision_function` directly (no probability).
+`svm_zone` is a separate SVC instance trained with `probability=True` (Platt scaling) used only for section 12 heatmaps. `viz_models['SVM RBF (bal.)']` in section 8c uses `decision_function` directly (no probability).
 
 ## Tree visualization (section 9b)
 
@@ -101,12 +126,12 @@ Most discriminating variable: **Temp. (°C)** (Gini importance ~51%), then Press
 
 ## Second notebook — analyse_kfold.ipynb
 
-Companion notebook testing RepeatedStratifiedKFold (K=4, 10 repeats = 40 scores per model) as an alternative to LOOCV. Produces:
+Companion notebook testing RepeatedStratifiedKFold (K=4, 10 repeats = 40 scores per model) as an alternative to LOOCV. Uses `Pipeline([('scaler', StandardScaler()), ('clf', clf)])` to avoid data leakage. Produces:
 - K-Fold accuracy table with meaningful std (not just √(p×(1-p)))
 - Side-by-side comparison table LOOCV vs K-Fold with Δ column
 - Bar chart with error bars → `comparaison_kfold_loocv.png`
 
-K=4 chosen because 8 MAUVAIS / 4 folds = exactly 2 MAUVAIS per test fold (minimum for stability).
+K=4 chosen because 12 MAUVAIS / 4 folds = exactly 3 MAUVAIS per test fold (minimum for stability).
 
 ## Dependencies
 
