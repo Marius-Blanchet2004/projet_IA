@@ -1,0 +1,28 @@
+{
+  "SVM Linéaire": {
+    "C": 0.001
+  },
+  "SVM Linéaire (bal.)": {
+    "C": 10
+  },
+  "SVM RBF": {
+    "C": 1,
+    "gamma": "scale"
+  },
+  "SVM RBF (bal.)": {
+    "C": 10,
+    "gamma": 0.1
+  },
+  "SVM Poly deg=2 (bal.)": {
+    "C": 100
+  },
+  "SVM Poly deg=3 (bal.)": {
+    "C": 100
+  },
+  "NuSVC RBF (bal.)": {
+    "nu": 0.3
+  },
+  "Random Forest": {
+    "n_estimators": 50
+  }
+}

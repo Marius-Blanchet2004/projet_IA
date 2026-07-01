@@ -130,32 +130,65 @@
   </div>
 </div>
 
+<!-- BANNIÈRE FIABILA -->
+<img src="fiabila-banner.png" alt="Fiabila — Shape and inspire the beauty future" style="width:100%;display:block">
+
 <!-- HERO -->
 <header class="hero">
   <div class="wrap">
-    <span class="kicker"><span class="drop"></span> Stage ouvrier 2026 · Maintenon</span>
-    <div class="eyebrow">Contrôle qualité prédictif</div>
-    <h1>Prédire la qualité d'un lot<br><em>avant même de l'analyser.</em></h1>
-    <p class="lead">À partir de 3 paramètres machine — durée, température, pression — un modèle classe automatiquement chaque broyage en <b style="color:var(--bon)">BON</b> ou <b style="color:var(--mauvais)">MAUVAIS</b>.</p>
-    <div class="stats">
-      <div class="stat"><div class="num flame">85,7%</div><div class="lab">de bonnes prédictions</div></div>
-      <div class="stat"><div class="num">3</div><div class="lab">paramètres suffisent</div></div>
-      <div class="stat"><div class="num bon">N°1</div><div class="lab">facteur clé : la température</div></div>
-      <div class="stat"><div class="num">28</div><div class="lab">lots analysés</div></div>
+    <div class="grid2">
+      <div>
+        <span class="kicker"><span class="drop"></span> Fiabila · Maintenon</span>
+        <div class="eyebrow">Stage ouvrier 2026</div>
+        <h1>Contrôle qualité prédictif<br><em>du broyeur B430</em></h1>
+        <p class="lead" style="margin-top:24px"><b style="color:var(--ink);font-size:1.1em">Marius Blanchet</b><br>Stage du 4 mai au 2 juillet 2026 — Fiabila, Maintenon</p>
+      </div>
+      <div style="display:flex;justify-content:center">
+        <img src="fiabila-mains-creme.png" alt="Mains aux ongles rouges Fiabila tenant un pot de crème" style="width:100%;border-radius:16px;box-shadow:0 18px 44px rgba(120,80,40,.12);display:block">
+      </div>
     </div>
   </div>
 </header>
 
-<!-- PRINCIPE -->
+<!-- PROBLÈME · DONNÉES RÉELLES -->
 <section>
   <div class="wrap">
-    <div class="eyebrow">Le principe</div>
-    <h2>Trois mesures, une décision automatique</h2>
-    <p class="lead">Chaque lot est décrit par ses conditions de broyage. Le modèle apprend à reconnaître les combinaisons qui donnent un bon produit — et à signaler celles qui partent en défaut.</p>
-    <div class="steps">
-      <div class="step"><div class="n">01 · ENTRÉE</div><h3>Les conditions du broyage</h3><p>Durée (min), température (°C) et pression (bar) relevées pendant la fabrication.</p></div>
-      <div class="step"><div class="n">02 · MODÈLE</div><h3>Apprentissage sur l'historique</h3><p>Le modèle s'entraîne sur les lots passés, bons comme mauvais, pour en tirer la règle.</p></div>
-      <div class="step"><div class="n">03 · SORTIE</div><h3>BON ou MAUVAIS</h3><p>Une prédiction immédiate pour chaque nouveau lot, avant analyse laboratoire.</p></div>
+    <div class="eyebrow">Le problème, en données réelles · F4000</div>
+    <h2>Quand tout part au refus labo</h2>
+    <p class="lead">Ce n'est pas une impression. En février 2026, les 5 productions F4000 lancées ont <b>toutes</b> été refusées au laboratoire du premier coup — chacune a dû être recorrigée puis relancée.</p>
+    <div class="figure" style="margin-top:18px">
+      <table style="width:100%;border-collapse:collapse;font-size:14px">
+        <thead>
+          <tr style="text-align:left;color:var(--muted);border-bottom:1.5px solid var(--line)">
+            <th style="padding:11px 12px;font-weight:700">Date</th>
+            <th style="padding:11px 12px;font-weight:700">Lot</th>
+            <th style="padding:11px 12px;font-weight:700">Résultat labo</th>
+            <th style="padding:11px 12px;font-weight:700">Action corrective</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--line)"><td style="padding:11px 12px;color:var(--muted)">02/02/2026</td><td style="padding:11px 12px;font-variant-numeric:tabular-nums">26.02.0521_1</td><td style="padding:11px 12px"><span style="display:inline-block;background:var(--mauvais);color:#fff;font-weight:700;font-size:12px;padding:3px 10px;border-radius:6px">Refus Labo</span></td><td style="padding:11px 12px;color:var(--muted)">+2,0 % AE</td></tr>
+          <tr style="border-bottom:1px solid var(--line)"><td style="padding:11px 12px;color:var(--muted)">11/02/2026</td><td style="padding:11px 12px;font-variant-numeric:tabular-nums">26.03.0731_1</td><td style="padding:11px 12px"><span style="display:inline-block;background:var(--mauvais);color:#fff;font-weight:700;font-size:12px;padding:3px 10px;border-radius:6px">Refus Labo</span></td><td style="padding:11px 12px;color:var(--muted)">Trop intense — coupage ~2,5 % base</td></tr>
+          <tr style="border-bottom:1px solid var(--line)"><td style="padding:11px 12px;color:var(--muted)">16/02/2026</td><td style="padding:11px 12px;font-variant-numeric:tabular-nums">26.04.0640_1</td><td style="padding:11px 12px"><span style="display:inline-block;background:var(--mauvais);color:#fff;font-weight:700;font-size:12px;padding:3px 10px;border-radius:6px">Refus Labo</span></td><td style="padding:11px 12px;color:var(--muted)">+1,5 % AE</td></tr>
+          <tr style="border-bottom:1px solid var(--line)"><td style="padding:11px 12px;color:var(--muted)">19/02/2026</td><td style="padding:11px 12px;font-variant-numeric:tabular-nums">26.04.0641_1</td><td style="padding:11px 12px"><span style="display:inline-block;background:var(--mauvais);color:#fff;font-weight:700;font-size:12px;padding:3px 10px;border-radius:6px">Refus Labo</span></td><td style="padding:11px 12px;color:var(--muted)">Double correction (+2 % AE ×2)</td></tr>
+          <tr><td style="padding:11px 12px;color:var(--muted)">25/02/2026</td><td style="padding:11px 12px;font-variant-numeric:tabular-nums">26.03.0732_1</td><td style="padding:11px 12px"><span style="display:inline-block;background:var(--mauvais);color:#fff;font-weight:700;font-size:12px;padding:3px 10px;border-radius:6px">Refus Labo</span></td><td style="padding:11px 12px;color:var(--muted)">Centri KO ×2 — mise en quarantaine</td></tr>
+        </tbody>
+      </table>
+      <div class="figcap">Sur l'ensemble de l'historique F4000, <b>35 % des premières productions sont refusées au labo (17 sur 48)</b> — février 2026 en est le pic.</div>
+    </div>
+  </div>
+</section>
+
+<!-- OBSERVATION + DÉMARCHE (fusion) -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">L'observation & la démarche</div>
+    <h2>Les bons et les mauvais lots ne se font pas dans les mêmes conditions</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:36px">
+      <div class="step"><div class="n">01 · DONNÉES</div><h3>Collecter et structurer</h3><p>Rassembler les lots passés du B430 — conditions de broyage et verdict bon / mauvais — et nettoyer les mesures manquantes.</p></div>
+      <div class="step"><div class="n">02 · EXPLORER</div><h3>Regarder les données</h3><p>Visualiser les lots en 3D et lire les courbes pour repérer ce qui sépare un bon lot d'un mauvais.</p></div>
+      <div class="step"><div class="n">03 · MODÉLISER</div><h3>Tester des modèles</h3><p>Comparer plusieurs méthodes de classification et mesurer laquelle prédit le mieux la qualité.</p></div>
+      <div class="step"><div class="n">04 · RESTITUER</div><h3>En tirer des pistes</h3><p>Traduire les résultats en zones de réglage sûres et en pistes concrètes pour la production.</p></div>
     </div>
   </div>
 </section>
@@ -171,28 +204,6 @@
       <span class="chip"><span class="sq mauvais"></span> MAUVAIS produit</span>
     </div>
     <div class="plotbox" style="margin-top:18px"><div id="plot-scatter" class="plot"></div></div>
-  </div>
-</section>
-
-<!-- FACTEUR CLE -->
-<section>
-  <div class="wrap">
-    <div class="grid2 rev">
-      <div class="figure">
-        <img src="feature_importance_RF.png" alt="Importance des variables">
-        <div class="figcap">Poids de chaque paramètre dans la décision du modèle</div>
-      </div>
-      <div>
-        <div class="eyebrow">Le facteur déterminant</div>
-        <h2>La température pèse pour moitié dans la qualité</h2>
-        <p class="lead">Le modèle ne se contente pas de prédire : il dit <i>pourquoi</i>. La température est de loin le paramètre le plus discriminant, devant la pression et la durée.</p>
-        <div class="bars">
-          <div class="bar-row"><span class="name">Température</span><div class="track"><div class="fill" style="width:100%;background:linear-gradient(90deg,#cf122f,#e0455a)"></div></div><span class="val">51%</span></div>
-          <div class="bar-row"><span class="name">Pression</span><div class="track"><div class="fill" style="width:52%;background:#1f9d57"></div></div><span class="val">27%</span></div>
-          <div class="bar-row"><span class="name">Durée</span><div class="track"><div class="fill" style="width:44%;background:#c8a24a"></div></div><span class="val">22%</span></div>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -218,12 +229,12 @@
   </div>
 </section>
 
-<!-- ZONES DE VALIDITÉ (2D) -->
+<!-- ZONES DE VALIDITÉ + BONS PARAMÈTRES (fusion) -->
 <section>
   <div class="wrap">
-    <div class="eyebrow">Zones de validité · probabilité P(BON) en 2D</div>
+    <div class="eyebrow">Zones de validité · les bons paramètres</div>
     <h2>Où se situe la zone « bon produit » ?</h2>
-    <p class="lead">Pour chaque paire de paramètres, la carte montre la probabilité qu'un lot soit BON : vert = forte, rouge = faible. Les contours tracent les seuils 50 %, 70 % et 90 %. D'un coup d'œil, on lit la zone sûre — bien plus parlant qu'une vue 3D.</p>
+    <p class="lead">Pour chaque paire de paramètres, la carte montre la probabilité qu'un lot soit BON : vert = forte, rouge = faible. Les contours tracent les seuils 50 %, 70 % et 90 %. D'un coup d'œil, on lit la zone sûre — et on en déduit les réglages à viser.</p>
     <div class="chips">
       <span class="chip"><span class="sq bon"></span> Lot BON</span>
       <span class="chip"><span class="sq mauvais"></span> Lot MAUVAIS</span>
@@ -233,26 +244,12 @@
       <img src="zones_validite.png" alt="Zones de validité — probabilité BON produit, SVM RBF et Random Forest">
       <div class="figcap">Haut : SVM RBF · Bas : Random Forest — projections Durée×Temp, Durée×Pression, Temp×Pression</div>
     </div>
-  </div>
-</section>
-
-<!-- RÉCAP MEILLEURES ZONES -->
-<section>
-  <div class="wrap">
-    <div class="eyebrow">Récap · les meilleures zones</div>
-    <h2>Le réglage qui maximise les chances d'un bon lot</h2>
-    <p class="lead">En croisant les lots BON observés et les deux modèles, on dégage une zone de réglage « sûre » — puis les tendances propres à chaque méthode.</p>
-    <div style="display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 8px">
+    <div style="display:flex;flex-wrap:wrap;gap:12px;margin:30px 0 8px">
       <div style="background:#fff;border:1px solid var(--line);border-left:3px solid var(--bon);border-radius:10px;padding:13px 18px"><b style="font-size:19px">47 – 49 °C</b><div style="font-size:12px;color:var(--muted)">Température</div></div>
       <div style="background:#fff;border:1px solid var(--line);border-left:3px solid var(--bon);border-radius:10px;padding:13px 18px"><b style="font-size:19px">0,7 – 0,9 bar</b><div style="font-size:12px;color:var(--muted)">Pression</div></div>
       <div style="background:#fff;border:1px solid var(--line);border-left:3px solid var(--bon);border-radius:10px;padding:13px 18px"><b style="font-size:19px">720 – 960 min</b><div style="font-size:12px;color:var(--muted)">Durée</div></div>
     </div>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:6px">Zone centrale des lots BON (intervalle interquartile observé).</p>
-    <div class="duo">
-      <div class="step"><div class="n">SVM RBF</div><h3>Zone lisse, mais optimiste</h3><p>Le RBF dessine une zone « bonne » douce et compacte autour du cœur des lots BON. Revers : il est trop optimiste — il classe une large part de l'espace en BON, donc il laisse plus facilement passer un mauvais lot atypique.</p></div>
-      <div class="step"><div class="n">RANDOM FOREST</div><h3>Zone en escalier, plus prudente</h3><p>La forêt découpe la zone par seuils nets (typique des arbres), pilotés surtout par la température. Plus prudente sur les bords, c'est elle qui atteint la meilleure précision (85,7 %).</p></div>
-    </div>
-    <p class="note"><b>À garder en tête :</b> pris séparément, aucun paramètre ne sépare nettement BON et MAUVAIS (température médiane 48,8 °C contre 49,9 °C — très proche). La zone sûre vient de la <b>combinaison</b> des trois paramètres, et reste imparfaite (~85 % au mieux). À utiliser comme aide à la décision, pas comme garantie.</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:6px">Zone centrale des lots BON (intervalle interquartile observé) — les réglages à viser.</p>
   </div>
 </section>
 
@@ -279,11 +276,39 @@
   <div class="wrap">
     <div class="eyebrow">Optimisation F400 · prochaines étapes</div>
     <h2>Trois leviers pour optimiser encore plus la production F400</h2>
-    <p class="lead">Au-delà de la classification BON / MAUVAIS, trois chantiers permettent d'aller plus loin : fiabiliser la conduite, viser l'excellence produit, et enrichir le modèle avec davantage de mesures.</p>
-    <div class="steps">
-      <div class="step"><div class="n">LEVIER 1</div><h3>Mode automatique</h3><p>Une conduite régulée et reproductible, sans recours au forçage manuel.</p></div>
-      <div class="step"><div class="n">LEVIER 2</div><h3>Plan d'exploration</h3><p>Planifier des essais pour cartographier davantage de points de réglage encore non testés.</p></div>
-      <div class="step"><div class="n">LEVIER 3</div><h3>Plus de mesures</h3><p>Dépasser les 3 paramètres actuels en intégrant de nouveaux capteurs.</p></div>
+    <p class="lead">Au-delà de la classification BON / MAUVAIS, trois chantiers pour aller plus loin.</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-top:42px">
+
+      <div style="position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-top:3px solid var(--bon);border-radius:14px;padding:26px 24px 28px;box-shadow:0 14px 34px rgba(120,80,40,.07);flex:1 1 280px;max-width:330px">
+        <div style="position:absolute;top:6px;right:18px;font-size:88px;font-weight:800;color:var(--bon);opacity:.09;line-height:1;letter-spacing:-.04em">1</div>
+        <div style="position:relative;width:48px;height:48px;border-radius:13px;background:#e7f4ec;display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+          <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#1f9d57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M3.9 7l2.6 1.5M17.5 15.5l2.6 1.5M3.9 17l2.6-1.5M17.5 8.5l2.6-1.5"/></svg>
+        </div>
+        <div style="position:relative;font-size:11.5px;font-weight:800;letter-spacing:.1em;color:var(--bon)">LEVIER 1</div>
+        <h3 style="position:relative;font-size:19px;margin:5px 0 7px">Mode automatique</h3>
+        <p style="position:relative;font-size:14.5px;color:var(--muted)">Une conduite régulée et reproductible, sans recours au forçage manuel.</p>
+      </div>
+
+      <div style="position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:14px;padding:26px 24px 28px;box-shadow:0 14px 34px rgba(120,80,40,.07);flex:1 1 280px;max-width:330px">
+        <div style="position:absolute;top:6px;right:18px;font-size:88px;font-weight:800;color:var(--gold);opacity:.13;line-height:1;letter-spacing:-.04em">2</div>
+        <div style="position:relative;width:48px;height:48px;border-radius:13px;background:#faf3e3;display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+          <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#c8a24a" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.4"/><circle cx="12" cy="12" r="1.1" fill="#c8a24a" stroke="none"/></svg>
+        </div>
+        <div style="position:relative;font-size:11.5px;font-weight:800;letter-spacing:.1em;color:#a8862f">LEVIER 2</div>
+        <h3 style="position:relative;font-size:19px;margin:5px 0 7px">Plan d'exploration</h3>
+        <p style="position:relative;font-size:14.5px;color:var(--muted)">Planifier des essais pour cartographier les réglages encore non testés.</p>
+      </div>
+
+      <div style="position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-top:3px solid var(--flame);border-radius:14px;padding:26px 24px 28px;box-shadow:0 14px 34px rgba(120,80,40,.07);flex:1 1 280px;max-width:330px">
+        <div style="position:absolute;top:6px;right:18px;font-size:88px;font-weight:800;color:var(--flame);opacity:.10;line-height:1;letter-spacing:-.04em">3</div>
+        <div style="position:relative;width:48px;height:48px;border-radius:13px;background:#fcebeb;display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+          <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#cf122f" stroke-width="2" stroke-linecap="round"><path d="M4 20V11M9.3 20V7M14.7 20v-8.5M20 20V4.5"/></svg>
+        </div>
+        <div style="position:relative;font-size:11.5px;font-weight:800;letter-spacing:.1em;color:var(--flame)">LEVIER 3</div>
+        <h3 style="position:relative;font-size:19px;margin:5px 0 7px">Plus de mesures</h3>
+        <p style="position:relative;font-size:14.5px;color:var(--muted)">Dépasser les 3 paramètres actuels en intégrant de nouveaux capteurs.</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -320,37 +345,172 @@
   <div class="wrap">
     <div class="eyebrow">Levier 2 · Plan d'exploration · cas F400</div>
     <h2>Planifier des essais pour explorer plus de points</h2>
-    <p class="lead">Le modèle ne connaît que les zones déjà produites ; de larges parties de l'écran de paramètres n'ont jamais été testées. On planifie donc des essais sur des points inédits — par exemple ~30 °C, ~300 min, ou des durées plus courtes. Cas concret sur la F400 : plutôt que d'affirmer un gain, on le teste à l'échelle réelle, avec un filet de sécurité.</p>
+    <p class="lead">Le modèle ne connaît que les zones déjà produites. Sur la F400, on teste des points inédits — à l'échelle réelle, avec un filet de sécurité.</p>
 
     <div style="margin:30px 0 8px">
-      <div style="display:flex;height:30px;border-radius:8px;overflow:hidden;border:1px solid var(--line)">
-        <div style="flex:0 0 80%;background:var(--bon);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13.5px">~80 % · réglage sûr</div>
-        <div style="flex:0 0 20%;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13.5px">~20 % · essais d'exploration</div>
+      <div style="display:flex;height:44px;border-radius:8px;overflow:hidden;border:1px solid var(--line)">
+        <div style="flex:0 0 80%;background:var(--bon);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px">~80 % · réglage sûr</div>
+        <div style="flex:0 0 20%;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px">~20 % · essais d'exploration</div>
       </div>
       <p style="font-size:13px;color:var(--muted);margin-top:8px">Objectif atteint <b>progressivement</b>, pas dès le départ.</p>
     </div>
 
-    <div class="steps">
-      <div class="step"><div class="n">POURQUOI</div><h3>Des zones inconnues</h3><p>Le modèle n'a appris que sur les lots déjà fabriqués ; il reste aveugle aux réglages jamais essayés. Chaque nouveau point mesuré enrichit la carte.</p></div>
-      <div class="step"><div class="n">DÉMARCHE</div><h3>Par vagues, du petit au grand</h3><p>80 % des lots restent en réglage sûr, 20 % explorent des points inédits. On commence petit (un cran à la fois), on mesure, on valide, puis on élargit. Le risque reste borné.</p></div>
-      <div class="step"><div class="n">PRÉREQUIS</div><h3>Un modèle F400</h3><p>Donner les « bons paramètres » suppose un modèle F400, donc un historique de lots F400 étiquetés. À confirmer avant de lancer — sinon on le construit d'abord.</p></div>
+    <div class="figure" style="margin-top:24px">
+      <svg viewBox="0 0 720 360" role="img" aria-label="Carte d'exploration Température × Durée : zone connue des lots produits, vaste zone inexplorée, et points 30 °C et 300 min à tester" style="width:100%;display:block">
+        <defs>
+          <marker id="goldArr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#c8a24a"/></marker>
+          <marker id="axArr" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto"><path d="M0,0 L5,3 L0,6 Z" fill="#191512"/></marker>
+        </defs>
+        <rect x="80" y="36" width="600" height="284" fill="#faf7f5"/>
+        <text x="300" y="244" text-anchor="middle" font-size="15" font-weight="700" fill="#bdb3a8">zone inexplorée</text>
+        <line x1="80" y1="320" x2="690" y2="320" stroke="#191512" stroke-width="2" marker-end="url(#axArr)"/>
+        <line x1="80" y1="330" x2="80" y2="30" stroke="#191512" stroke-width="2" marker-end="url(#axArr)"/>
+        <text x="566" y="345" font-size="13" font-weight="700" fill="#191512">Température (°C)</text>
+        <text x="92" y="26" font-size="13" font-weight="700" fill="#191512">Durée (min)</text>
+        <rect x="536" y="62" width="56" height="74" rx="12" fill="#1f9d57" opacity="0.13" stroke="#1f9d57" stroke-width="1.5"/>
+        <circle cx="548" cy="92" r="5" fill="#1f9d57"/>
+        <circle cx="560" cy="80" r="5" fill="#1f9d57"/>
+        <circle cx="570" cy="98" r="5" fill="#1f9d57"/>
+        <circle cx="556" cy="110" r="5" fill="#1f9d57"/>
+        <circle cx="566" cy="118" r="5" fill="#1f9d57"/>
+        <circle cx="544" cy="104" r="5" fill="#1f9d57"/>
+        <text x="564" y="52" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1f9d57">zone connue</text>
+        <line x1="534" y1="98" x2="270" y2="98" stroke="#c8a24a" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#goldArr)"/>
+        <circle cx="252" cy="98" r="8" fill="#c8a24a"/>
+        <circle cx="252" cy="98" r="13" fill="none" stroke="#c8a24a" stroke-width="1.5" opacity="0.5"/>
+        <text x="252" y="78" text-anchor="middle" font-size="13" font-weight="800" fill="#a8862f">30 °C</text>
+        <line x1="560" y1="140" x2="560" y2="262" stroke="#c8a24a" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#goldArr)"/>
+        <circle cx="560" cy="280" r="8" fill="#c8a24a"/>
+        <circle cx="560" cy="280" r="13" fill="none" stroke="#c8a24a" stroke-width="1.5" opacity="0.5"/>
+        <text x="582" y="285" font-size="13" font-weight="800" fill="#a8862f">300 min</text>
+      </svg>
+      <div class="figcap" style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap">
+        <span style="display:inline-flex;align-items:center;gap:7px"><span style="width:12px;height:12px;border-radius:3px;background:#1f9d57;display:inline-block"></span>Zone connue — lots déjà produits</span>
+        <span style="display:inline-flex;align-items:center;gap:7px"><span style="width:12px;height:12px;border-radius:50%;background:#c8a24a;display:inline-block"></span>Points à explorer</span>
+      </div>
     </div>
-
-    <p class="note"><b>Cadre des essais :</b> aucun lot n'est lancé sans réglage validé par le modèle ; les essais restent bornés et progressifs. Un réglage prouvé s'applique ensuite à <i>toute</i> la production F400 — le gain est permanent, pas ponctuel.</p>
   </div>
 </section>
 
 <!-- LEVIER 3 · PLUS DE MESURES -->
-<section style="border-bottom:none">
+<section>
   <div class="wrap">
     <div class="eyebrow">Levier 3 · Plus de mesures</div>
     <h2>Aller au-delà des 3 paramètres</h2>
-    <p class="lead">Aujourd'hui le modèle s'appuie sur 3 mesures : température, pression, durée. En intégrer davantage — agitation de la cuve, vitesse du broyeur, et d'autres — affinerait la prédiction et révélerait des effets que les 3 mesures actuelles ne captent pas.</p>
-    <div class="steps">
-      <div class="step"><div class="n">AUJOURD'HUI</div><h3>3 paramètres</h3><p>Température, pression, durée — suffisants pour une première classification fiable.</p></div>
-      <div class="step"><div class="n">DEMAIN</div><h3>Davantage de capteurs</h3><p>Agitation de la cuve, vitesse du broyeur, et d'autres mesures à intégrer au modèle.</p></div>
-      <div class="step"><div class="n">PRÉREQUIS</div><h3>Plus de puissance de calcul</h3><p>Plus de variables, c'est plus de calcul. Un ordinateur plus puissant est nécessaire — acquisition prévue dans les prochains jours. Projet en cours.</p></div>
+    <p class="lead">Aujourd'hui le modèle s'appuie sur 3 mesures. En intégrer d'autres affinerait la prédiction.</p>
+    <div class="figure" style="margin-top:24px">
+      <svg viewBox="0 0 720 380" role="img" aria-label="Schéma : 3 mesures actuelles (température, pression, durée) plus des capteurs à ajouter (agitation, vitesse du broyeur) alimentant le modèle pour une prédiction plus fine, nécessitant plus de puissance de calcul" style="width:100%;display:block">
+        <defs>
+          <marker id="gArr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9a8f84"/></marker>
+          <marker id="gdArr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c8a24a"/></marker>
+        </defs>
+        <text x="30" y="34" font-size="11.5" font-weight="700" fill="#7a7068" letter-spacing="1">AUJOURD'HUI</text>
+        <rect x="30" y="45" width="185" height="40" rx="20" fill="#e7f4ec" stroke="#1f9d57" stroke-width="1.5"/><text x="122" y="70" text-anchor="middle" font-size="14" font-weight="700" fill="#15723f">Température</text>
+        <rect x="30" y="95" width="185" height="40" rx="20" fill="#e7f4ec" stroke="#1f9d57" stroke-width="1.5"/><text x="122" y="120" text-anchor="middle" font-size="14" font-weight="700" fill="#15723f">Pression</text>
+        <rect x="30" y="145" width="185" height="40" rx="20" fill="#e7f4ec" stroke="#1f9d57" stroke-width="1.5"/><text x="122" y="170" text-anchor="middle" font-size="14" font-weight="700" fill="#15723f">Durée</text>
+        <text x="30" y="199" font-size="11.5" font-weight="700" fill="#a8862f" letter-spacing="1">À AJOUTER</text>
+        <rect x="30" y="207" width="185" height="40" rx="20" fill="#faf3e3" stroke="#c8a24a" stroke-width="1.5" stroke-dasharray="6 4"/><text x="122" y="232" text-anchor="middle" font-size="14" font-weight="700" fill="#a8862f">Agitation de la cuve</text>
+        <rect x="30" y="257" width="185" height="40" rx="20" fill="#faf3e3" stroke="#c8a24a" stroke-width="1.5" stroke-dasharray="6 4"/><text x="122" y="282" text-anchor="middle" font-size="14" font-weight="700" fill="#a8862f">Vitesse du broyeur</text>
+        <rect x="30" y="307" width="185" height="40" rx="20" fill="#faf3e3" stroke="#c8a24a" stroke-width="1.5" stroke-dasharray="6 4"/><text x="122" y="332" text-anchor="middle" font-size="14" font-weight="700" fill="#a8862f">Autres mesures…</text>
+        <line x1="215" y1="65" x2="405" y2="166" stroke="#9a8f84" stroke-width="1.6" marker-end="url(#gArr)"/>
+        <line x1="215" y1="115" x2="405" y2="180" stroke="#9a8f84" stroke-width="1.6" marker-end="url(#gArr)"/>
+        <line x1="215" y1="165" x2="405" y2="192" stroke="#9a8f84" stroke-width="1.6" marker-end="url(#gArr)"/>
+        <line x1="215" y1="227" x2="405" y2="204" stroke="#c8a24a" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#gdArr)"/>
+        <line x1="215" y1="277" x2="405" y2="216" stroke="#c8a24a" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#gdArr)"/>
+        <line x1="215" y1="327" x2="405" y2="228" stroke="#c8a24a" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#gdArr)"/>
+        <rect x="410" y="146" width="140" height="100" rx="16" fill="#fff" stroke="#191512" stroke-width="1.8"/>
+        <text x="480" y="190" text-anchor="middle" font-size="17" font-weight="800" fill="#191512">Modèle</text>
+        <text x="480" y="212" text-anchor="middle" font-size="12" fill="#7a7068">classification</text>
+        <rect x="408" y="262" width="144" height="30" rx="15" fill="#faf3e3" stroke="#c8a24a" stroke-width="1.2"/><text x="480" y="281" text-anchor="middle" font-size="11.5" font-weight="700" fill="#a8862f">+ puissance de calcul</text>
+        <line x1="550" y1="196" x2="606" y2="196" stroke="#9a8f84" stroke-width="1.8" marker-end="url(#gArr)"/>
+        <text x="616" y="192" font-size="13.5" font-weight="800" fill="#15723f">Prédiction</text>
+        <text x="616" y="211" font-size="13.5" font-weight="800" fill="#15723f">plus fine</text>
+      </svg>
+      <div class="figcap">Plus de variables nécessite un ordinateur plus puissant — acquisition en cours.</div>
     </div>
+  </div>
+</section>
+
+<!-- MERCI -->
+<section style="border-bottom:none;text-align:center">
+  <div class="wrap">
+    <span class="kicker" style="margin-bottom:26px"><span class="drop"></span> Questions &amp; échanges</span>
+    <h1 style="margin-top:4px">Merci de votre <em style="font-style:normal;background:linear-gradient(90deg,var(--flame),var(--ember));-webkit-background-clip:text;background-clip:text;color:transparent">attention</em></h1>
+    <p class="lead" style="margin:22px auto 0">Je suis à votre disposition pour vos questions.</p>
+    <p style="margin-top:26px;font-size:14px;color:var(--muted)">Marius Blanchet · Stage ouvrier 2026 · Fiabila, Maintenon</p>
+  </div>
+</section>
+
+<!-- ANNEXE 1 · COÛT D'UN REFUS -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Annexe chiffrée · estimation</div>
+    <h2>Ce que coûte un lot refusé</h2>
+    <p class="lead">Un lot refusé n'est pas jeté : il est rebroyé 6 h et recorrigé. Le surcoût, poste par poste, pour une cuve de 2 tonnes :</p>
+    <div class="bars" style="max-width:600px;margin-top:28px">
+      <div class="bar-row"><span class="name">Produits ajoutés</span><div class="track"><div class="fill" style="width:100%;background:#c8a24a"></div></div><span class="val">~120 €</span></div>
+      <div class="bar-row"><span class="name">Main-d'œuvre</span><div class="track"><div class="fill" style="width:83%;background:#1f9d57"></div></div><span class="val">~100 €</span></div>
+      <div class="bar-row"><span class="name">Électricité</span><div class="track"><div class="fill" style="width:25%;background:#3f6fd6"></div></div><span class="val">~30 €</span></div>
+      <div class="bar-row"><span class="name">Contrôle labo</span><div class="track"><div class="fill" style="width:17%;background:#cf122f"></div></div><span class="val">~20 €</span></div>
+    </div>
+    <div style="display:inline-block;margin-top:28px;background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--flame);border-radius:10px;padding:14px 24px">
+      <span style="font-size:13px;color:var(--muted)">Total par cuve refusée</span><br><b style="font-size:27px;color:var(--flame)">≈ 270 €</b>
+    </div>
+    <p class="note">Hypothèses : SMIC juin 2026 = 12,31 €/h (opérateur ~17 €/h chargé) · électricité industrielle ~0,12 €/kWh · broyeur ~45 kW · produits ajoutés ~2 % de coupage (~120 €, à affiner) · labo = 10 laborantins validant ~100 produits/jour, soit ~0,7 h et ≈ 20 € par cuve.</p>
+  </div>
+</section>
+
+<!-- ANNEXE 2 · GAIN ANNUEL -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Annexe chiffrée · gain annuel</div>
+    <h2>Combien on récupère, sur le seul F4000</h2>
+    <p class="lead">~34 cuves de F4000 par an, dont 35 % refusées aujourd'hui (~12 cuves, soit ≈ 3 200 €/an de reprises). En faisant baisser ce taux :</p>
+    <div style="display:flex;flex-wrap:wrap;gap:20px;margin-top:30px">
+      <div style="flex:1 1 270px;max-width:340px;background:#fff;border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:14px;padding:24px 26px 26px;box-shadow:0 14px 34px rgba(120,80,40,.07)">
+        <div style="font-size:11.5px;font-weight:800;letter-spacing:.1em;color:#a8862f">SCÉNARIO PRUDENT</div>
+        <h3 style="font-size:21px;margin:6px 0 12px">35 % → 20 % de refus</h3>
+        <b style="font-size:30px;color:#a8862f">≈ 1 400 €/an</b>
+        <p style="font-size:14px;color:var(--muted);margin-top:8px">+ ~31 h de broyeur libérées par an</p>
+      </div>
+      <div style="flex:1 1 270px;max-width:340px;background:#fff;border:1px solid var(--line);border-top:3px solid var(--bon);border-radius:14px;padding:24px 26px 26px;box-shadow:0 14px 34px rgba(120,80,40,.07)">
+        <div style="font-size:11.5px;font-weight:800;letter-spacing:.1em;color:var(--bon)">AVEC LES 3 MÉTHODES</div>
+        <h3 style="font-size:21px;margin:6px 0 12px">35 % → 10 % de refus</h3>
+        <b style="font-size:30px;color:#15723f">≈ 2 300 €/an</b>
+        <p style="font-size:14px;color:var(--muted);margin-top:8px">+ ~51 h de broyeur libérées par an</p>
+      </div>
+    </div>
+    <p class="note"><b>Gain direct</b> (reprises évitées). S'y ajoute un <b>bonus capacité</b> : les heures de broyeur libérées peuvent produire d'autres cuves — valorisable dès qu'on aura la marge du F4000. Estimation sur le F4000 seul ; elle se multiplie en l'étendant aux autres produits du B430.</p>
+  </div>
+</section>
+
+<!-- ANNEXE 3 · FORMULE GAIN TOTAL -->
+<section style="border-bottom:none">
+  <div class="wrap">
+    <div class="eyebrow">Annexe chiffrée · gain total</div>
+    <h2>La formule du gain total</h2>
+    <p class="lead">Le gain complet additionne le coût évité et la valeur des heures de broyeur libérées — qui, elle, dépend du prix d'une cuve de F4000.</p>
+
+    <div style="background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:30px 32px;margin-top:26px">
+      <div style="font-size:20px;font-weight:800;color:var(--ink)">Gain total / an = <span style="color:#1f9d57">Gain direct</span> + <span style="color:#c8a24a">Gain capacité</span></div>
+      <div style="height:1px;background:var(--line);margin:22px 0"></div>
+      <div style="font-size:15.5px;line-height:2.2;color:var(--ink)">
+        <div><span style="color:var(--muted)">cuves évitées / an</span> = 34 × (35 % − taux visé)</div>
+        <div><b style="color:#1f9d57">Gain direct</b> = cuves évitées × <b>270 €</b> <span style="color:var(--muted)">(coût d'une reprise)</span></div>
+        <div><b style="color:#c8a24a">Gain capacité</b> = cuves évitées × (6 h ÷ durée d'un broyage) × <span style="display:inline-block;background:#faf3e3;border:1px dashed #c8a24a;border-radius:8px;padding:2px 12px;font-weight:800;color:#a8862f">marge d'une cuve F4000</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;background:#fff;border:1px solid var(--line);border-left:3px solid var(--bon);border-radius:12px;padding:20px 24px;max-width:640px">
+      <div style="font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--bon);margin-bottom:8px">EXEMPLE · OBJECTIF 35 % → 10 %</div>
+      <div style="font-size:15px;line-height:2;color:var(--ink)">
+        cuves évitées = 34 × 25 % = <b>8,5 / an</b><br>
+        <b style="color:#1f9d57">Gain direct</b> = 8,5 × 270 € = <b>≈ 2 300 €/an</b><br>
+        <b style="color:#c8a24a">Gain capacité</b> = 8,5 × 6 h = 51 h libérées ÷ durée × <span style="color:#a8862f;font-weight:800">prix F4000</span> = <b style="color:#a8862f">à compléter</b>
+      </div>
+    </div>
+
+    <p class="note">Il me manque deux nombres pour boucler : la <b>marge (ou le prix) d'une cuve de F4000</b> et la <b>durée normale d'un broyage</b>. Avec eux, le gain capacité se chiffre — et c'est lui, pas le coût évité, qui rend l'investissement convaincant.</p>
   </div>
 </section>
 
